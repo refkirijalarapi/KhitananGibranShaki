@@ -76,20 +76,33 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
-        // 1. Inisialisasi AOS (Animasi)
-        AOS.init();
+    // 1. Inisialisasi AOS (Animate On Scroll)
+    // Memastikan animasi berjalan saat halaman di-scroll
+    AOS.init({
+        duration: 1000, // durasi animasi dalam milidetik
+        once: true,     // animasi hanya berjalan sekali saat di-scroll
+    });
 
-        // 2. Logika Mengambil Nama dari URL
-        // Contoh URL: index.html?to=Anggun+Savitri
-        const queryString = window.location.search;
-        const urlParams = new URLSearchParams(queryString);
-        const nama = urlParams.get('to');
+    // 2. Logika Mengambil Nama dari URL
+    // Contoh URL: index.html?to=Deni_Priatna
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const namaRaw = urlParams.get('to');
 
-        // Jika ada parameter 'to', ganti teks di HTML
-        if (nama) {
-            document.getElementById('nama-tamu').innerText = nama;
+    // Jika parameter 'to' ditemukan di URL
+    if (namaRaw) {
+        // .replace(/_/g, ' ') akan mencari semua (_) dan menggantinya dengan spasi ( )
+        // .replace(/\+/g, ' ') juga menangani jika URL menggunakan tanda plus (+) untuk spasi
+        const namaClean = namaRaw.replace(/_/g, ' ').replace(/\+/g, ' ');
+
+        // Masukkan nama yang sudah bersih ke dalam elemen HTML
+        const elemenNama = document.getElementById('nama-tamu');
+        if (elemenNama) {
+            elemenNama.innerText = namaClean;
         }
+    }
     </script>
+    
     
     <script src="./script.js"></script>
 
